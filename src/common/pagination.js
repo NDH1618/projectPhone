@@ -1,0 +1,42 @@
+// const pagination = (page, totalpage) => {
+//     const pages = [];
+//     const left = page - 2;
+//     const right = page + 2;
+//     for(i = 1; i <= totalpage; i++){
+//         if(
+//             i == 1 || i == totalpage || i == page ||
+//             (i <= right) && (i >= left)
+//         ){
+//             pages.push(i)
+//         }
+//         else if ( i == left - 1 || i == right + 1){
+//             pages.push("...")
+//         }
+//     }
+//     return pages;
+// };
+// module.exports = {
+//     pagination,
+// };
+
+module.exports = (page, totalPage, delta=2)=>{
+
+    const pages = [];
+    const left = page - delta;
+    const right =page + delta;
+    for(i=1; i<=totalPage; i++){
+        if(
+            i==1 ||
+            i==totalPage ||
+            i==page ||
+            (i >= left) && (i <= right)
+        ){
+            pages.push(i);
+        }
+        else if(i==left -1 || i==right + 1){
+            pages.push("...");
+        }
+    }
+    return pages;
+
+}

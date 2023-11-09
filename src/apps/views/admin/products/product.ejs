@@ -1,0 +1,121 @@
+<%- include("./../layout/head", {title: "Product vietpro" })%>
+    <%- include("./../layout/header")%>
+        <%- include("./../layout/sidebar")%>
+
+
+            <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+                <div class="row">
+                    <ol class="breadcrumb">
+                        <li><a href="#"><svg class="glyph stroked home">
+                                    <use xlink:href="#stroked-home"></use>
+                                </svg></a></li>
+                        <li class="active">Danh sách sản phẩm</li>
+                    </ol>
+                </div>
+                <!--/.row-->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Danh sách sản phẩm</h1>
+                    </div>
+                </div>
+                <!--/.row-->
+                <div id="toolbar" class="btn-group">
+                    <a href="/admin/product/create" class="btn btn-success">
+                        <i class="glyphicon glyphicon-plus"></i> Thêm sản phẩm
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <table data-toolbar="#toolbar" data-toggle="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th data-field="id" data-sortable="true">ID</th>
+                                            <th data-field="name" data-sortable="true">Tên sản phẩm</th>
+                                            <th data-field="price" data-sortable="true">Giá</th>
+                                            <th>Ảnh sản phẩm</th>
+                                            <th>Trạng thái</th>
+                                            <th>Danh mục</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="">999</td>
+                                            <td style="">anh dep so mot</td>
+                                            <td style="">khong co gia</td>
+                                            <td style="text-align: center"><img  width="150" height="140"
+                                                    src="img/anhdep.jpg" /></td>
+                                            <td><span class="label label-success">anh van con</span></td>
+                                            <td>Danh mục số 1</td>
+                                            <td class="form-group">
+                                                <a href="product-edit.html" class="btn btn-primary"><i
+                                                        class="glyphicon glyphicon-pencil"></i></a>
+                                                <a href="product-edit.html" class="btn btn-danger"><i
+                                                        class="glyphicon glyphicon-remove"></i></a>
+                                            </td>
+                                        </tr>
+
+                                       
+                                        <% for(product of data.products) {%>
+
+                                            <tr>
+
+                                                <td style="">1</td>
+                                                <td style=""><%=product.name%></td>
+                                                <td style=""><%=product.price%> vnd</td>
+                                                <td style="text-align: center"><img width="130" height="180"
+                                                        src="/static/images/<%=product.thumbnail%>" /></td>
+                                                <td>
+                                                    <span class="label label-<%=product.is_stock ? 'success' : 'danger'%>"><%=product.is_stock ? 'còn hàng' : 'hết hàng'%></span>                  
+                                                    <!-- <%=product.is_stock = 'true' ?  `<span class="label label-success">Còn hàng</span>` : `<h1>Hello Guest</h1>`  %>                  -->
+                                                </td>
+                                                <td><%=product.cat_id.title%></td>
+                                                <td class="form-group">
+                                                    <a href="/admin/product/edit/<%=product._id%>" class="btn btn-primary"><i
+                                                            class="glyphicon glyphicon-pencil"></i></a>
+                                                    <a href="/admin/product/delete/<%=product._id%>" class="btn btn-danger"><i
+                                                            class="glyphicon glyphicon-remove"></i></a>
+                                            </tr>
+
+                                            <%}%>
+
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="panel-footer">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item"><a class="page-link" href="/admin/product?page=<%=(data.page - 1)%>">&laquo;</a></li>
+                
+
+                                            <%data.pages.map((item) => {%>
+
+                                                <li class="page-item <%=item === data.page? 'active': ''%>"><a class="page-link" href="/admin/product?page=<%=item%>"><%=item%></a></li>
+
+                                            <%})%>
+
+                                               
+                                        <li class="page-item"><a class="page-link" href="/admin/product?page=<%=(data.next)%>">&raquo;</a></li>
+                                        <%=data.hasNext%>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.row-->
+            </div>
+            <!--/.main-->
+
+            <script src="js/jquery-1.11.1.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/bootstrap-table.js"></script>
+
+            <%- include("./../layout/footer")%>
